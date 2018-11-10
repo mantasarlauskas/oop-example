@@ -31,9 +31,29 @@ class Weather
     protected $date;
 
     /**
+     * @var string
+     */
+    protected $day;
+
+    /**
+     * @var integer
+     */
+    protected $high;
+
+    /**
+     * @var integer
+     */
+    protected $low;
+
+    /**
+     * @var string
+     */
+    protected $text;
+
+    /**
      * @return int
      */
-    public function getDayTemp(): int
+    public function getDayTemp(): ?int
     {
         return $this->dayTemp;
     }
@@ -49,7 +69,7 @@ class Weather
     /**
      * @return int
      */
-    public function getNightTemp(): int
+    public function getNightTemp(): ?int
     {
         return $this->nightTemp;
     }
@@ -65,7 +85,7 @@ class Weather
     /**
      * @return int
      */
-    public function getSky(): int
+    public function getSky(): ?int
     {
         return $this->sky;
     }
@@ -92,6 +112,70 @@ class Weather
     public function setDate(\DateTime $date): void
     {
         $this->date = $date;
+    }
+
+    /**
+     * @return string $day
+     */
+    public function getDay(): ?string
+    {
+        return $this->day;
+    }
+
+    /**
+     * @param string $day
+     */
+    public function setDay(string $day): void
+    {
+        $this->day = $day;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHigh(): ?int
+    {
+        return $this->high;
+    }
+
+    /**
+     * @param int $high
+     */
+    public function setHigh(int $high): void
+    {
+        $this->high = $high;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLow(): ?int
+    {
+        return $this->low;
+    }
+
+    /**
+     * @param int $low
+     */
+    public function setLow(int $low): void
+    {
+        $this->low = $low;
+    }
+
+    /**
+     * @return string $text
+     */
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    /**
+     * @param string $text
+     */
+    public function setText(string $text): void
+    {
+        $this->text = $text;
     }
 
     public function getSkySymbol()

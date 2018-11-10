@@ -8,6 +8,16 @@ use Weather\Model\Weather;
 class DbRepository implements DataProvider
 {
     /**
+     * @var string
+     */
+    private $fileName;
+
+    function __construct(string $fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+    /**
      * @param \DateTime $date
      * @return Weather
      */
@@ -46,15 +56,19 @@ class DbRepository implements DataProvider
     {
         $result = [];
         $data = json_decode(
-            file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Db' . DIRECTORY_SEPARATOR . 'Data.json'),
+            file_get_contents(__DIR__ . DIRECTORY_SEPARATOR . 'Db' . DIRECTORY_SEPARATOR . $this->fileName . '.json'),
             true
         );
         foreach ($data as $item) {
             $record = new Weather();
             $record->setDate(new \DateTime($item['date']));
-            $record->setDayTemp($item['dayTemp']);
-            $record->setNightTemp($item['nightTemp']);
-            $record->setSky($item['sky']);
+            isset($item['day']) && $record->setDay($item['day']);
+            isset($item['high']) && $record->setHigh($item['high']);
+            isset($item['low']) && $record->setLow($item['low']);
+            isset($item['text']) && $record->setText($item['text']);
+            isset($item['dayTemp']) && $record->setDayTemp($item['dayTemp']);
+            isset($item['nightTemp']) && $record->setNightTemp($item['nightTemp']);
+            isset($item['sky']) && $record->setSky($item['sky']);
             $result[] = $record;
         }
 

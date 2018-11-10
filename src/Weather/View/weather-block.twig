@@ -1,11 +1,23 @@
 <div class="widget style1 navy-bg">
     <div class="row">
         <div class="col-xs-4">
-            <i class="fa fa-{{ item.getSkySymbol }} fa-5x"></i>
+            {% if item.getSkySymbol %}
+                <i class="fa fa-{{ item.getSkySymbol }} fa-5x"></i>
+            {% else %}
+                <h1 class="font-bold">{{ item.getText }}</h1>
+            {% endif %}
         </div>
         <div class="col-xs-8 text-right">
             <span>{{ item.getDate|date("Y-m-d") }}</span>
-            <h2 class="font-bold">{{ item.getDayTemp }}'C</h2>
+            {% if item.getDayTemp is defined %}
+                <h2 class="font-bold">{{ item.getDayTemp }}'C</h2>
+            {% else %}
+                <ul class="list-group text-center m-t-sm">
+                    <li class="list-group-item">Weekday: {{ item.getDay }}</li>
+                    <li class="list-group-item">Highest temperature: {{ item.getHigh }}</li>
+                    <li class="list-group-item">Lowest temperature: {{ item.getLow }}</li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 </div>
