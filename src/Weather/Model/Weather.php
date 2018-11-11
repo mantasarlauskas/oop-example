@@ -180,6 +180,6 @@ class Weather
 
     public function getSkySymbol()
     {
-        return $this->map[$this->sky];
+        return $this->sky ? $this->map[$this->sky] : null;
     }
 }
