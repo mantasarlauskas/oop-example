@@ -9,7 +9,7 @@
         </div>
         <div class="col-xs-8 text-right">
             <span>{{ item.getDate|date("Y-m-d") }}</span>
-            {% if item.getDayTemp is defined %}
+            {% if item.getDayTemp is not null %}
                 <h2 class="font-bold">{{ item.getDayTemp }}'C</h2>
             {% else %}
                 <ul class="list-group text-center m-t-sm">

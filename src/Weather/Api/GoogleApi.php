@@ -14,10 +14,10 @@ class GoogleApi implements DataProvider
      */
     public function selectByDate(\DateTime $date): Weather
     {
-        $today = $this->load(new NullWeather());
-        $today->setDate($date);
+        $result = $this->load(new NullWeather());
+        $result->setDate($date);
 
-        return $today;
+        return $result;
     }
 
     /**
@@ -28,30 +28,20 @@ class GoogleApi implements DataProvider
      */
     public function selectByRange(\DateTime $from, \DateTime $to): array
     {
-        $items = $this->getWeek();
+        $end = false;
+        $i = 0;
         $result = [];
 
-        foreach ($items as $item) {
-            if ($item->getDate() >= $from && $item->getDate() <= $to) {
-                $result[] = $item;
-            }
-        }
-
-        return $result;
-    }
-
-    /**
-     * @return Weather[]
-     * @throws \Exception
-     */
-    private function getWeek()
-    {
-        $result = [];
-
-        for ($i = 0; $i < 7; $i++) {
+        while (!$end) {
             $record = $this->load(new NullWeather());
             $record->setDate(new \DateTime('+' . $i . ' days'));
-            $result[] = $record;
+
+            if ($record->getDate() >= $from && $record->getDate() <= $to) {
+                $result[] = $record;
+                $i++;
+            } else {
+                $end = true;
+            }
         }
 
         return $result;
